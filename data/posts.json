@@ -1,0 +1,9 @@
+[
+  {
+    "slug": "reconstructing-position-from-depth",
+    "title": "Reconstructing World Position from the Depth Buffer",
+    "date": "2026-10-28",
+    "summary": "Going from a single depth sample back to a world-space position: NDC conventions, linearising depth, and why reversed-Z is worth it.",
+    "tags": ["Depth", "Math", "GLSL"]
+  }
+]

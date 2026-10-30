@@ -1,0 +1,44 @@
+/* Shared full-screen layout for the demos in /demos. */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { margin: 0; height: 100%; background: #07080b; color: #e6e9f0; overflow: hidden; }
+body { font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; font-size: 14px; }
+
+canvas.demo { position: fixed; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+canvas.demo:active { cursor: grabbing; }
+
+.demo-panel {
+  position: fixed; top: 12px; left: 12px; width: min(300px, calc(100vw - 24px));
+  background: rgba(17, 20, 27, 0.86); backdrop-filter: blur(10px);
+  border: 1px solid #262c3a; border-radius: 12px; padding: 14px 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.demo-panel header { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.demo-panel h1 { font-size: 15px; margin: 0; letter-spacing: -0.01em; }
+.demo-panel a { color: #5ee3ff; text-decoration: none; }
+.demo-panel a:hover { text-decoration: underline; }
+.demo-back { font-size: 12px; font-family: "JetBrains Mono", ui-monospace, monospace; }
+.demo-fps { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 12px; color: #98a1b3; }
+.demo-hint { color: #98a1b3; font-size: 12px; margin: 6px 0 0; }
+
+.demo-panel details { margin-top: 10px; }
+.demo-panel summary { cursor: pointer; color: #98a1b3; font-size: 12px; user-select: none; }
+.controls { display: grid; gap: 10px; margin-top: 10px; }
+.controls label { display: grid; gap: 4px; font-size: 12px; color: #c3cad8; }
+.controls label span { display: flex; justify-content: space-between; }
+.controls output { font-family: "JetBrains Mono", ui-monospace, monospace; color: #98a1b3; }
+.controls input[type="range"] { width: 100%; accent-color: #5ee3ff; }
+.controls select, .controls button {
+  font: inherit; font-size: 13px; padding: 6px 8px; border-radius: 8px;
+  border: 1px solid #343b4d; background: #161a23; color: #e6e9f0;
+}
+.controls button { cursor: pointer; }
+.controls button:hover { border-color: #5ee3ff; }
+
+.demo-error {
+  position: fixed; inset: 0; display: grid; place-items: center; padding: 24px; text-align: center;
+}
+.demo-error div { max-width: 460px; }
+.demo-error h2 { margin: 0 0 8px; font-size: 20px; }
+.demo-error p { color: #98a1b3; line-height: 1.6; }
+.demo-error a { color: #5ee3ff; }
