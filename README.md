@@ -1,72 +1,78 @@
 # depthbuffer.github.io
 
-My graphics programming portfolio: projects, live WebGL2/WebGPU demos and technical write-ups.
-It's plain HTML/CSS/JS with no build step. GitHub Pages serves the repo as-is at https://depthbuffer.github.io.
+Static portfolio site. GitHub Pages serves `main` as-is (no build step).
 
-## Preview locally
-
-The pages load JSON and Markdown with `fetch()`, which doesn't work over `file://`. Serve the folder instead:
+## Run locally
 
 ```sh
-python -m http.server 8000
-# open http://localhost:8000
+python -m http.server 8123
 ```
 
-## Adding content
-
-### A project
-1. Add an entry to `data/projects.json`:
-   ```json
-   {
-     "id": "my-project",
-     "title": "My Project",
-     "summary": "One or two sentences.",
-     "tags": ["Vulkan", "C++"],
-     "thumb": "/assets/img/projects/my-project.jpg",
-     "video": "/assets/img/projects/my-project.mp4",
-     "repo": "https://github.com/...",
-     "demo": "/demos/my-demo/",
-     "featured": true,
-     "date": "2026-11-01"
-   }
-   ```
-   `video` (a short muted loop that plays on hover), `repo`, `demo`, `store` (a Steam page) and `video_url` (e.g. YouTube) are optional.
-   `featured: true` puts it on the home page (up to 3, newest first).
-2. Write the long-form page in `content/projects/my-project.md`. The file name must match `id`.
-
-### A blog post
-1. Add `{ "slug", "title", "date", "summary", "tags" }` to `data/posts.json`.
-2. Write `content/posts/<slug>.md`.
-
-Markdown supports:
-- **Code highlighting** for fenced blocks: `glsl`, `cpp`, `hlsl` (use `cpp`), `wgsl` (use `rust`) and so on.
-- **Math** with KaTeX: `$inline$` and `$$display$$`. Escape a literal dollar sign as `\$`.
-- **Images and video**: use root-absolute paths (`/assets/img/...`), not relative ones.
-
-### A live demo
-1. Create `demos/<name>/index.html`. Copy an existing demo as a starting point. They share `/assets/css/demo.css` and `/assets/js/demo-kit.js` (FPS counter, canvas resize, slider binding, error screen).
-2. Add it to `demos/demos.json`.
-
-## Personalise
-- **Bio, experience, skills, contact:** `about.html`. The hero text is in `index.html`.
-- **CV:** replace `assets/cv.pdf`.
-- **Brand name, author and footer links:** the `SITE` constant at the top of `assets/js/site.js`.
-- **Colours:** the tokens at the top of `assets/css/style.css`.
-- **Project write-ups:** `content/projects/*.md` contain `<!-- TODO -->` comments (invisible on the page) marking where screenshots and detail go. Replace the generated SVG thumbnails in `assets/img/projects/` with real screenshots.
+Open http://localhost:8123. Opening the HTML files directly does not work, because pages load JSON and Markdown with `fetch()`.
 
 ## Layout
+
 ```
-index.html, projects.html, project.html, blog.html, post.html, demos.html, about.html, 404.html
-assets/css/style.css   site styles (dark default + light theme)
-assets/css/demo.css    full-screen demo styles
-assets/js/site.js      header/footer, nav, theme toggle
-assets/js/content.js   renders cards and lists from JSON, and Markdown pages
-assets/js/hero.js      WebGL2 hero background
-data/*.json            project and post indexes
-content/**.md          project write-ups and blog posts
-demos/                 self-contained live demos + demos.json
+index.html              Home
+404.html                Not-found page
+about/                  About page and cv.pdf
+projects/
+  index.html            Project grid (filter: ?tag=)
+  view.html             One project (?id=<id>)
+  projects.json         Project list
+  content/<id>.md       Project write-ups
+  img/                  Thumbnails
+blog/
+  index.html, post.html Post list, one post (?slug=<slug>)
+  posts.json            Post list
+  content/<slug>.md     Posts
+demos/
+  index.html            Demo list
+  demos.json            Demo list
+assets/css, assets/js   Shared styles and scripts
 ```
 
-## Deploying
-Push to `main`. In the repo's **Settings → Pages**, the source should be **Deploy from a branch → `main` / `(root)`**.
-The `.nojekyll` file tells Pages to serve files as-is without running Jekyll.
+## Add a project
+
+1. Add an entry to `projects/projects.json`:
+
+   | Field      | Required | Notes                                      |
+   |------------|----------|--------------------------------------------|
+   | `id`       | yes      | Must match `projects/content/<id>.md`      |
+   | `title`    | yes      |                                            |
+   | `summary`  | yes      | One or two sentences                       |
+   | `tags`     | yes      | Used by the filter                         |
+   | `thumb`    | yes      | 16:9 image, e.g. `/projects/img/<id>.jpg`  |
+   | `date`     | yes      | `YYYY-MM-DD`, newest first                 |
+   | `featured` | no       | `true` shows it on the home page (max 3)   |
+   | `video`    | no       | Muted `.mp4` loop, plays on card hover     |
+   | `repo`     | no       | Source link                                |
+   | `demo`     | no       | Live demo link                             |
+   | `store`    | no       | Steam page link                            |
+   | `video_url`| no       | External video, e.g. YouTube               |
+
+2. Write `projects/content/<id>.md`.
+
+## Add a blog post
+
+1. Add `{ "slug", "title", "date", "summary", "tags" }` to `blog/posts.json`.
+2. Write `blog/content/<slug>.md`.
+3. For the first post, set `show: true` for Blog in `NAV` in `assets/js/site.js`.
+
+## Add a demo
+
+1. Create `demos/<name>/index.html` (self-contained page).
+2. Add `{ "title", "summary", "api", "tags", "path", "thumb", "source" }` to `demos/demos.json`.
+   `path` is `/demos/<name>/`. `source` is optional.
+3. For the first demo, set `show: true` for Demos in `NAV` in `assets/js/site.js`.
+
+## Markdown
+
+- Code blocks: fenced, with a language (`glsl`, `cpp`).
+- Math: `$inline$` and `$$block$$` (KaTeX). Write a literal dollar sign as `\$`.
+- Images and video: use absolute paths, e.g. `/projects/img/shot.jpg`.
+- `<!-- comments -->` are not shown on the page.
+
+## Paths
+
+All links use absolute paths (`/projects/…`). Do not use relative paths: `404.html` is served at any URL depth.

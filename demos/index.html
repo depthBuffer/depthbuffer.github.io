@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Projects — depthBuffer</title>
-  <meta name="description" content="Rendering and GPU programming projects: engines, renderers, ray tracing and shader work.">
+  <title>Live Demos — depthBuffer</title>
+  <meta name="description" content="Interactive WebGL2 and WebGPU rendering demos that run in your browser.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Projects — depthBuffer">
-  <meta property="og:url" content="https://depthbuffer.github.io/projects.html">
+  <meta property="og:title" content="Live Demos — depthBuffer">
+  <meta property="og:url" content="https://depthbuffer.github.io/demos/">
   <meta name="theme-color" content="#0b0d12">
   <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,17 +18,16 @@
   <script src="/assets/js/site.js" defer></script>
   <script src="/assets/js/content.js" defer></script>
 </head>
-<body data-page="projects">
-  <header id="site-header"><noscript><a href="/">Home</a> · <a href="/demos.html">Demos</a> · <a href="/blog.html">Blog</a> · <a href="/about.html">About</a></noscript></header>
+<body data-page="demos">
+  <header id="site-header"><noscript><a href="/">Home</a> · <a href="/projects/">Projects</a> · <a href="/blog/">Blog</a> · <a href="/about/">About</a></noscript></header>
 
   <main class="container">
     <header class="page-head">
-      <p class="eyebrow">Work</p>
-      <h1>Projects</h1>
-      <p>Shipped games, engine tooling, simulation and personal rendering work. Filter by engine, API or technique.</p>
+      <p class="eyebrow">Interactive</p>
+      <h1>Live demos</h1>
+      <p>Real-time experiments running directly in your browser. WebGPU demos need a recent Chrome, Edge or Safari.</p>
     </header>
-    <div class="chip-row" id="project-filters" role="group" aria-label="Filter projects by tag"></div>
-    <div class="grid" id="project-grid"></div>
+    <div class="grid" id="demo-grid" style="margin-top:32px"></div>
   </main>
 
   <footer id="site-footer"></footer>

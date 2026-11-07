@@ -4,16 +4,18 @@
     name: "depthBuffer",
     author: "Antony Peter T",
     github: "https://github.com/depthBuffer",
+    linkedin: "https://www.linkedin.com/in/antony-t-5188a3135/",
   };
 
+  // Set show: true once a section has content.
   const NAV = [
-    { href: "/projects.html", label: "Projects", match: ["/projects.html", "/project.html"] },
-    { href: "/demos.html", label: "Demos", match: ["/demos.html"] },
-    { href: "/blog.html", label: "Blog", match: ["/blog.html", "/post.html"] },
-    { href: "/about.html", label: "About", match: ["/about.html"] },
+    { href: "/projects/", label: "Projects", show: true },
+    { href: "/demos/", label: "Demos", show: false },
+    { href: "/blog/", label: "Blog", show: false },
+    { href: "/about/", label: "About", show: true },
   ];
 
-  const path = location.pathname.replace(/\/index\.html$/, "/");
+  const path = location.pathname;
 
   function themeIcon(theme) {
     return theme === "light"
@@ -31,8 +33,8 @@
     const header = document.getElementById("site-header");
     if (!header) return;
     header.className = "site-header";
-    const links = NAV.map((item) => {
-      const active = item.match.includes(path) ? ' aria-current="page"' : "";
+    const links = NAV.filter((item) => item.show).map((item) => {
+      const active = path.startsWith(item.href) ? ' aria-current="page"' : "";
       return `<a href="${item.href}"${active}>${item.label}</a>`;
     }).join("");
     header.innerHTML = `
@@ -69,7 +71,7 @@
     footer.innerHTML = `
       <div class="container">
         <span>&copy; ${new Date().getFullYear()} ${SITE.author}</span>
-        <span><a href="${SITE.github}">GitHub</a> &middot; <a href="/about.html">Contact</a></span>
+        <span><a href="${SITE.github}">GitHub</a> &middot; <a href="${SITE.linkedin}">LinkedIn</a> &middot; <a href="/about/">Contact</a></span>
       </div>`;
   }
 

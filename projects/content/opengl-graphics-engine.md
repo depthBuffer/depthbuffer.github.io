@@ -1,4 +1,4 @@
-<!-- TODO: add a hero screenshot or short video, e.g. ![Engine screenshot](/assets/img/projects/engine-hero.jpg) -->
+<!-- TODO: add a hero screenshot or short video, e.g. ![Engine screenshot](/projects/img/engine-hero.jpg) -->
 <!-- TODO: if the code is public, add "repo" to this project in data/projects.json -->
 
 ## Overview

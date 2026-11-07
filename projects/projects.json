@@ -4,7 +4,7 @@
     "title": "OpenGL C++ Graphics Engine",
     "summary": "A from-scratch C++ engine with a deferred PBR (Cook-Torrance) pipeline, a custom math library and an HDR post-processing stack with bloom and SSAO.",
     "tags": ["OpenGL", "C++", "GLSL", "PBR", "Deferred"],
-    "thumb": "/assets/img/projects/opengl-graphics-engine.svg",
+    "thumb": "/projects/img/opengl-graphics-engine.svg",
     "featured": true,
     "date": "2026-10-01"
   },
@@ -13,7 +13,7 @@
     "title": "Anesthesia Simulation",
     "summary": "A browser-deployed simulation that trains doctors in anesthesia. I own the Docker-based build and delivery pipeline for its WebGL deployment.",
     "tags": ["WebGL", "Docker", "Simulation"],
-    "thumb": "/assets/img/projects/anesthesia-simulation.svg",
+    "thumb": "/projects/img/anesthesia-simulation.svg",
     "featured": false,
     "date": "2026-09-01"
   },
@@ -22,7 +22,7 @@
     "title": "Unreal Engine Content Tooling",
     "summary": "Editor tooling in Unreal Engine that streamlined data content creation and validation, cutting manual steps out of the asset pipeline.",
     "tags": ["Unreal Engine", "C++", "Tools"],
-    "thumb": "/assets/img/projects/unreal-content-tooling.svg",
+    "thumb": "/projects/img/unreal-content-tooling.svg",
     "featured": false,
     "date": "2025-10-01"
   },
@@ -31,7 +31,7 @@
     "title": "Stampede: Racing Royale",
     "summary": "Gameplay and rendering features for a 60-player kart racer, released on Steam in October 2024.",
     "tags": ["Unity", "Gameplay", "Rendering"],
-    "thumb": "/assets/img/projects/stampede-racing-royale.svg",
+    "thumb": "/projects/img/stampede-racing-royale.svg",
     "store": "https://store.steampowered.com/app/1851350/Stampede_Racing_Royale/",
     "featured": true,
     "date": "2024-10-10"
@@ -39,9 +39,9 @@
   {
     "id": "mars-horizon-2",
     "title": "Mars Horizon 2: The Search for Life",
-    "summary": "Hexagonal grid systems and terrain-renderer tooling for a space-agency strategy game.",
+    "summary": "Hexagonal grid systems and terrain-renderer tooling for a space-agency strategy game. The demo is on Steam; the full game is unreleased.",
     "tags": ["Unity", "Terrain", "Tools"],
-    "thumb": "/assets/img/projects/mars-horizon-2.svg",
+    "thumb": "/projects/img/mars-horizon-2.svg",
     "store": "https://store.steampowered.com/app/2281620/Mars_Horizon_2_The_Search_for_Life/",
     "featured": true,
     "date": "2024-09-01"
@@ -51,7 +51,7 @@
     "title": "Endoscopy Simulation",
     "summary": "Endoscopic simulation cases and scenes in Unity3D for diagnostic and therapeutic procedures on the lower and upper intestinal tract.",
     "tags": ["Unity", "Simulation"],
-    "thumb": "/assets/img/projects/endoscopy-simulation.svg",
+    "thumb": "/projects/img/endoscopy-simulation.svg",
     "featured": false,
     "date": "2021-08-01"
   }

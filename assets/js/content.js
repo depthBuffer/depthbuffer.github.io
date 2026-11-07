@@ -1,8 +1,8 @@
 // Renders projects, posts and demos from the JSON indexes in /data and /demos,
 // and long-form Markdown pages from /content.
 (function () {
-  const PROJECTS_URL = "/data/projects.json";
-  const POSTS_URL = "/data/posts.json";
+  const PROJECTS_URL = "/projects/projects.json";
+  const POSTS_URL = "/blog/posts.json";
   const DEMOS_URL = "/demos/demos.json";
 
   const esc = (s) =>
@@ -40,7 +40,7 @@
   // ---------- Projects ----------
   function projectLinks(p, { includeWriteup = true } = {}) {
     const links = [];
-    if (includeWriteup) links.push(`<a href="/project.html?id=${encodeURIComponent(p.id)}">Write-up</a>`);
+    if (includeWriteup) links.push(`<a href="/projects/view.html?id=${encodeURIComponent(p.id)}">Write-up</a>`);
     if (p.repo) links.push(`<a href="${esc(p.repo)}" rel="noopener">Code</a>`);
     if (p.demo) links.push(`<a href="${esc(p.demo)}">Live demo</a>`);
     if (p.store) links.push(`<a href="${esc(p.store)}" rel="noopener">Steam</a>`);
@@ -49,7 +49,7 @@
   }
 
   function projectCard(p) {
-    const href = `/project.html?id=${encodeURIComponent(p.id)}`;
+    const href = `/projects/view.html?id=${encodeURIComponent(p.id)}`;
     const video = p.video ? `<video muted loop playsinline preload="none" src="${esc(p.video)}"></video>` : "";
     const badge = p.demo ? `<span class="card-badge">LIVE DEMO</span>` : "";
     return `
@@ -60,7 +60,7 @@
         <div class="card-body">
           <h3><a href="${href}">${esc(p.title)}</a></h3>
           <p>${esc(p.summary)}</p>
-          ${tagList(p.tags, "/projects.html")}
+          ${tagList(p.tags, "/projects/")}
           ${projectLinks(p)}
         </div>
       </article>`;
@@ -98,6 +98,7 @@
     } catch (err) { showError(projEl, err); }
     try {
       const posts = (await loadJSON(POSTS_URL)).sort(byDateDesc);
+      postEl.closest("section").hidden = posts.length === 0;
       renderPostList(postEl, posts.slice(0, 3));
     } catch (err) { showError(postEl, err); }
   }
@@ -139,7 +140,7 @@
     el.innerHTML = posts.map((p) => `
       <article class="post-item">
         <div class="post-meta"><time datetime="${esc(p.date)}">${formatDate(p.date)}</time>${tagList(p.tags)}</div>
-        <h3><a href="/post.html?slug=${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h3>
+        <h3><a href="/blog/post.html?slug=${encodeURIComponent(p.slug)}">${esc(p.title)}</a></h3>
         <p>${esc(p.summary)}</p>
       </article>`).join("");
   }
@@ -196,13 +197,13 @@
 
   function project() {
     return markdownPage({
-      indexUrl: PROJECTS_URL, key: "id", param: "id", dir: "/content/projects",
+      indexUrl: PROJECTS_URL, key: "id", param: "id", dir: "/projects/content",
       head: (p) => `
         <header class="article-head">
-          <p class="eyebrow"><a href="/projects.html">&larr; Projects</a></p>
+          <p class="eyebrow"><a href="/projects/">&larr; Projects</a></p>
           <h1>${esc(p.title)}</h1>
           <p class="summary">${esc(p.summary)}</p>
-          ${tagList(p.tags, "/projects.html")}
+          ${tagList(p.tags, "/projects/")}
           ${projectLinks(p, { includeWriteup: false })}
         </header>`,
     });
@@ -210,12 +211,12 @@
 
   function post() {
     return markdownPage({
-      indexUrl: POSTS_URL, key: "slug", param: "slug", dir: "/content/posts",
+      indexUrl: POSTS_URL, key: "slug", param: "slug", dir: "/blog/content",
       head: (p, md) => {
         const minutes = Math.max(1, Math.round(md.split(/\s+/).length / 220));
         return `
         <header class="article-head">
-          <p class="eyebrow"><a href="/blog.html">&larr; Blog</a></p>
+          <p class="eyebrow"><a href="/blog/">&larr; Blog</a></p>
           <h1>${esc(p.title)}</h1>
           <div class="post-meta"><time datetime="${esc(p.date)}">${formatDate(p.date)}</time><span>${minutes} min read</span>${tagList(p.tags)}</div>
         </header>`;
@@ -228,6 +229,7 @@
     const el = document.getElementById("demo-grid");
     try {
       const list = await loadJSON(DEMOS_URL);
+      if (!list.length) { el.innerHTML = `<div class="empty">No demos yet.</div>`; return; }
       el.innerHTML = list.map((d) => `
         <article class="card">
           <a class="card-media" href="${esc(d.path)}" tabindex="-1" aria-hidden="true">
